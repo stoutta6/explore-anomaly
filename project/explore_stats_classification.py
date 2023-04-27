@@ -86,11 +86,11 @@ for ii in tqdm(range(len(anomaly_score)), desc='Computing anomaly scores', total
 # %% plot performance
 
 plt.figure()
-plt.histogram(anomaly_score[holdout_df['label'] == 'target'])
-plt.histogram(anomaly_score[holdout_df['label'] == 'background'])
+plt.hist([anomaly_score[holdout_df['label'] == 'background'], anomaly_score[holdout_df['label'] == 'target']])
 plt.xlabel('Anomaly score')
 plt.ylabel('Count')
-plt.legend(['Target','Background'])
+plt.yscale('log')
+plt.legend(['Background', 'Target'])
 plt.title('Anomaly detection by KNN, K = {}'.format(KNN_K))
 plt.grid()
 plt.savefig('analysis/KNN_holdout_scores_histogram.png')
