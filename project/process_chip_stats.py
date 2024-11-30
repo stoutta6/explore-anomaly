@@ -14,17 +14,17 @@ from tqdm import tqdm
 process_holdout = True
 
 if process_holdout:
-    data_dir_root = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/chip_sets/holdout'
-    figure_dir = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/figures/chip_stats/holdout'
+    data_dir_root = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/chip_sets/three_channel/holdout'
+    figure_dir = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/figures/three_channel/chip_stats/holdout'
 else:
-    data_dir_root = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/chip_sets/validation'
-    figure_dir = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/figures/chip_stats'
+    data_dir_root = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/chip_sets/three_channel/validation'
+    figure_dir = '/mnt/c/Users/titor/Dropbox/PC/Documents/data/xview3/figures/three_channel/chip_stats'
 
-csv_save_dir = '/mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/analysis'
+csv_save_dir = '/mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/analysis/three_channel'
 
 # %% find target chips
 
-target_glob = glob(os.path.join(data_dir_root,'target/*.tif'))
+target_glob = glob(os.path.join(data_dir_root,'target/*.tiff'))
 N_targets = len(target_glob)
 
 # %% loop through and process targets
@@ -68,7 +68,7 @@ else:
 
 # %% find background chips
 
-background_glob = glob(os.path.join(data_dir_root,'background/*.tif'))
+background_glob = glob(os.path.join(data_dir_root,'background/*.tiff'))
 N_targets = len(background_glob)
 
 # %% loop through and process background

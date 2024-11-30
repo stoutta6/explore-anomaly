@@ -13,10 +13,10 @@ from sklearn import metrics
 
 # %% some configuration
 
-figure_dir = '//mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/figures/analysis'
-csv_save_dir = '/mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/analysis'
+figure_dir = '/mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/analysis/three_channel'
+csv_save_dir = '/mnt/c/Users/titor/Dropbox/Projects/Anomaly_detection/explore-anomaly/analysis/three_channel'
 
-run_reports = False
+run_reports = True
 
 KNN_K = 10 # average distance over this many nearest neighbors as an anomaly criterion
 
@@ -38,9 +38,9 @@ validation_df = pd.concat([validation_target_df, validation_background_df])
 
 if run_reports:
     my_report = sv.analyze(validation_df)
-    my_report.show_html('analysis/validation__concat_sweetviz_report.html')
+    my_report.show_html(os.path.join(csv_save_dir,'validation_concat_sweetviz_report.html'))
     my_report = sv.compare([validation_target_df, 'Target'], [validation_background_df, 'Background'])
-    my_report.show_html('analysis/validation_comparison_sweetviz_report.html')
+    my_report.show_html(os.path.join(csv_save_dir,'validation_comparison_sweetviz_report.html'))
 
 N_holdout_targets = len(holdout_target_df.index)
 holdout_target_df['label'] = ['target'] * N_holdout_targets
@@ -51,9 +51,9 @@ holdout_df = pd.concat([holdout_target_df, holdout_background_df])
 
 if run_reports:
     my_report = sv.analyze(holdout_df)
-    my_report.show_html('analysis/holdout_concat_sweetviz_report.html')
+    my_report.show_html(os.path.join(csv_save_dir,'holdout_concat_sweetviz_report.html'))
     my_report = sv.compare([holdout_target_df, 'Target'], [holdout_background_df, 'Background'])
-    my_report.show_html('analysis/holdout_comparison_sweetviz_report.html')
+    my_report.show_html(os.path.join(csv_save_dir,'holdout_comparison_sweetviz_report.html'))
 
 
 # %% Try KNN classification, training only with background examples
@@ -93,7 +93,7 @@ plt.yscale('log')
 plt.legend(['Background', 'Target'])
 plt.title('Anomaly detection by KNN, K = {}'.format(KNN_K))
 plt.grid()
-plt.savefig('analysis/KNN_holdout_scores_histogram.png')
+plt.savefig(os.path.join(figure_dir,'KNN_holdout_scores_histogram.png'))
 
 fpr, tpr, thresholds = metrics.roc_curve(holdout_df['label'], anomaly_score, pos_label='target')
 
@@ -103,6 +103,6 @@ plt.xlabel('FPR')
 plt.ylabel('TPR')
 plt.title('Anomaly detection task')
 plt.grid()
-plt.savefig('analysis/KNN_holdout_ROC.png')
+plt.savefig(os.path.join(figure_dir,'KNN_holdout_ROC.png'))
 
 print('Complete.')
